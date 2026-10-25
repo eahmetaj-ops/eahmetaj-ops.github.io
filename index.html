@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Erion Ahmetaj</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Erion Ahmetaj — Computer Science student at Stevens Institute of Technology, minoring in Machine Learning. Building AI agents and software.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112,600;112,800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single left-aligned column, terminal hero beside the intro, then stacked sections with a mono "path" label rail */
+:root {
+  color-scheme: dark;
+  --bg: #0b0909;
+  --surface: #151111;
+  --surface-2: #1d1717;
+  --line: #2e2525;
+  --fg: #f0eeee;
+  --muted: #9a9494;
+  --accent: #e41e20;      /* Albanian flag red */
+  --accent-soft: rgba(228, 30, 32, 0.18);
+  --cool: #c9c4c4;        /* secondary, for prompts/tags */
+  --f-display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --s-1: 0.8125rem; --s0: 1rem; --s1: 1.125rem; --s2: 1.5rem; --s3: 2.25rem; --s4: clamp(2.6rem, 7vw, 4.6rem);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--f-body);
+  font-size: var(--s0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(to bottom, #000 0, transparent 620px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, transparent 620px);
+}
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.wrap {
+  position: relative; z-index: 1;
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.mono { font-family: var(--f-mono); }
+
+/* Nav */
+nav.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-block: 22px; }
+.brand { font-family: var(--f-mono); font-size: var(--s-1); color: var(--muted); text-decoration: none; }
+.brand b { color: var(--accent); font-weight: 500; }
+.navlinks { display: flex; gap: 20px; flex-wrap: wrap; font-family: var(--f-mono); font-size: var(--s-1); }
+.navlinks a { color: var(--muted); text-decoration: none; }
+.navlinks a:hover { color: var(--fg); }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; padding-block: 56px 72px; }
+.hero > * { min-width: 0; }
+.eyebrow { font-family: var(--f-mono); font-size: var(--s-1); color: var(--cool); letter-spacing: 0.04em; margin: 0 0 14px; }
+.id-row { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; }
+.id-row .eyebrow { margin: 0; line-height: 1.5; }
+.avatar { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; flex: none; border: 2px solid var(--accent); padding: 3px; background: var(--bg); }
+h1 {
+  font-family: var(--f-display); font-stretch: 112%; font-weight: 800;
+  font-size: var(--s4); line-height: 0.98; letter-spacing: -0.02em; margin: 0 0 22px; text-wrap: balance;
+}
+h1 .last { color: var(--accent); }
+.lede { font-size: var(--s1); color: #c8c4c4; max-width: 34em; margin: 0 0 28px; }
+.lede strong { color: var(--fg); font-weight: 600; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--f-mono); font-size: var(--s-1); font-weight: 500;
+  padding: 10px 16px; border-radius: 6px; text-decoration: none; cursor: pointer;
+  border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+  transition: border-color .15s, background .15s;
+}
+.btn:hover { border-color: var(--muted); }
+.btn.primary { background: var(--accent); color: #ffffff; border-color: var(--accent); }
+.btn.primary:hover { background: #c8171a; }
+.btn svg { width: 16px; height: 16px; flex: none; }
+
+/* Terminal */
+.term { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; box-shadow: 0 24px 60px -30px rgba(0,0,0,.8); }
+.term-bar { display: flex; align-items: center; gap: 7px; padding: 10px 14px; border-bottom: 1px solid var(--line); background: var(--surface-2); }
+.term-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); display: block; }
+.term-bar span { margin-left: 8px; font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); }
+.term pre { margin: 0; padding: 18px 18px 22px; font-family: var(--f-mono); font-size: 0.8125rem; line-height: 1.75; white-space: pre-wrap; word-break: break-word; color: #d0cccc; }
+.p { color: var(--cool); }
+.c { color: var(--accent); }
+.dim { color: var(--muted); }
+.cursor { display: inline-block; width: 8px; height: 1.05em; background: var(--accent); vertical-align: -2px; animation: blink 1.1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
+
+/* Sections */
+section { display: grid; grid-template-columns: 180px 1fr; gap: 32px; padding-block: 56px; border-top: 1px solid var(--line); }
+section > * { min-width: 0; }
+.label { font-family: var(--f-mono); font-size: var(--s-1); color: var(--muted); position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; }
+.label b { color: var(--accent); font-weight: 500; }
+h2 { font-family: var(--f-display); font-stretch: 112%; font-weight: 800; font-size: var(--s3); line-height: 1.05; letter-spacing: -0.01em; margin: 0 0 24px; text-wrap: balance; }
+h3 { font-family: var(--f-display); font-stretch: 112%; font-weight: 600; font-size: var(--s1); margin: 0; line-height: 1.3; }
+p { margin: 0 0 14px; max-width: 65ch; }
+.about p { color: #c8c4c4; font-size: 1.0625rem; }
+
+/* Experience */
+.jobs { display: grid; gap: 40px; }
+.job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 6px 16px; flex-wrap: wrap; margin-bottom: 4px; }
+.job-role { color: var(--cool); font-family: var(--f-mono); font-size: var(--s-1); margin-bottom: 12px; }
+.when { font-family: var(--f-mono); font-size: var(--s-1); color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+ul.pts { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; max-width: 70ch; }
+ul.pts li { position: relative; padding-left: 20px; color: #c8c4c4; }
+ul.pts li::before { content: "›"; position: absolute; left: 2px; top: -1px; color: var(--accent); font-family: var(--f-mono); }
+
+/* Projects */
+.projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.proj { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 22px; display: flex; flex-direction: column; gap: 12px; transition: border-color .15s, transform .15s; }
+.proj:hover { border-color: #3a3a3a; }
+.proj.feature { grid-column: 1 / -1; background: linear-gradient(135deg, var(--accent-soft), transparent 55%), var(--surface); border-color: #5c1214; }
+.proj-kind { font-family: var(--f-mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; }
+.proj p { color: #c8c4c4; margin: 0; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 4px; }
+.tag { font-family: var(--f-mono); font-size: 0.75rem; color: var(--cool); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.14); padding: 2px 8px; border-radius: 4px; }
+
+.proj-link { font-family: var(--f-mono); font-size: var(--s-1); color: var(--accent); text-decoration: none; }
+.proj-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Impact stat */
+.impact { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+.impact .num { font-family: var(--f-display); font-stretch: 112%; font-weight: 800; font-size: var(--s3); color: var(--accent); line-height: 1; font-variant-numeric: tabular-nums; }
+.impact .num-label { font-family: var(--f-mono); font-size: var(--s-1); color: var(--muted); max-width: 18ch; line-height: 1.4; }
+
+/* Skills */
+.skills { display: grid; gap: 18px; }
+.skill-row { display: grid; grid-template-columns: 150px 1fr; gap: 16px; align-items: baseline; }
+.skill-row > * { min-width: 0; }
+.skill-row dt { font-family: var(--f-mono); font-size: var(--s-1); color: var(--muted); }
+.skill-row dd { margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 0.875rem; padding: 3px 10px; border-radius: 4px; background: var(--surface); border: 1px solid var(--line); }
+
+/* Education */
+.edu-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 20px 0 28px; }
+.edu-cell { border-left: 2px solid var(--line); padding-left: 14px; }
+.edu-cell .k { font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.edu-cell .v { font-family: var(--f-display); font-stretch: 112%; font-weight: 600; font-size: var(--s1); }
+.edu-cell .v.gpa { color: var(--accent); }
+.course-head { font-family: var(--f-mono); font-size: var(--s-1); color: var(--muted); margin-bottom: 10px; }
+
+/* Contact */
+.contact-card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 28px; display: grid; gap: 20px; }
+.email-line { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.email-line code { font-family: var(--f-mono); font-size: var(--s1); color: var(--fg); user-select: all; word-break: break-all; }
+.copied { font-family: var(--f-mono); font-size: 0.75rem; color: var(--accent); }
+
+footer { padding-block: 40px 56px; border-top: 1px solid var(--line); font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; gap: 36px; padding-block: 32px 56px; }
+  section { grid-template-columns: 1fr; gap: 12px; padding-block: 44px; }
+  .label { position: static; }
+  .projects { grid-template-columns: 1fr; }
+  .edu-grid { grid-template-columns: 1fr; }
+  .skill-row { grid-template-columns: 1fr; gap: 8px; }
+  .navlinks { gap: 14px; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav class="top" aria-label="Main">
+    <a class="brand" href="#top">~/<b>erion</b></a>
+    <div class="navlinks">
+      <a href="#about">about</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#skills">skills</a>
+      <a href="#contact">contact</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div>
+      <div class="id-row">
+        <img class="avatar" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/2wBDAQYGBgkICREJCREkGBQYJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCT/wAARCADwAPADASIAAhEBAxEB/8QAHAAAAgIDAQEAAAAAAAAAAAAABAUDBgIHCAEA/8QASRAAAQMDAwIDBAcEBggFBQAAAQACAwQFEQYSITFBE1FhByJxsRQVIzKBkdEIM0KTFiQ0NVKyF2JjZHJ0gqElQ3ODwURFVFWS/8QAGgEAAgMBAQAAAAAAAAAAAAAAAQIAAwQFBv/EACMRAAICAgMBAQEBAAMAAAAAAAABAhEDIQQSMRNBIjIjUWH/2gAMAwEAAhEDEQA/AEUWiK8/ffE34kKYaLmH36uAfBV83CskOXVD8/FeGeof1nkP4rldUegbk0P36Tgic3xa6IA8cIumsVqpJmyS3Fh284wqtmQ/+Y/8Svuepc5x9UyigdG1svdyqtM3FgjqKgHaMbglbaXSLDu3ySgeqqroGOwdo/NSNawANHuj0TUhY4qLYarSsfLabKx+udNt+7QDPqFWNoA4XxxjGQj1GcLLtY73abnWGnNtZGMcEAcoa46wZb6t9NTUUQaw4y5vVJ9KNL71EATgDlDX+NrLtOOevfsg2VrHbpsZP1zWl4LIIm/9K9Ourk4EARNGMfdVXmqYacEveEjuV/3nw4M4800INsmTpBelqi1RXU9zEzamJrpCGnjhbNs1AyOhklfUMlMp3+67hc4S1tKT9vK/f6Iig1zV217WUtZMIB1jzwVqhCvTl5pJ+HS1PWQUrd0jmsaO5KnF2h2l4qIvDP8ArBc4X/2l1V2oW00bnwkdSO6TQ6irnQhn02bA9Va1soOpTfaemp3DexwceuUUyuhqfBka4Yx0XLtNqutic1rqmQj4q0W3XVQQ0Oq5GAeqFEOnaGpaQ3accdlLcHHLSOh6las0p7QIDDE2aqjkJ468/ir6bo17YyXhzXeRRSAkSyENq24OU4pnHHLcDzSGeZrqqMxjPwTukm3DnPPAStbGfgbWbnQg9kjvX9lbgptVSP8AB8PHPmk13JFH54RaFTJqPb4EWSnMYLmdeAklGcwRgjkJrA97mkDsliMyGqeGk+iXW3DqiQ+qPezxNwPVAUbfCleM8qSIh5Tn7PlAV2RVQE9Nw+aMpn5i5Qdeft4h5OHzUXhH6cvNAz6rIImKy3R+AKGUnuiW6avB/wDopBnzXPo9D9oi8ALLhNRpK8OIAp9vxRMehby8Zc1jQnSQv2QhAPUBZA+iscWgLq7rJG1Ts9nFc8ZdVRj8UaSE+xVufJe8eith9nMpwPpjM4yeVG7Q1PGzMlxHBwcOQdtglyEhdo+XF7a3HZL9Xy/R7nUPc7HxVus1ktNmq21Irt8g7OdkKm+1SSkkqYXU0zSX7t+0p4422ZZ562a+uV1fUz7WA4QMtU+Nrmge8iR4cbHbRl2VFMWf4feW5QpGDJk7uxVLAXAvmcckqJkWDwEXM0yOJP4BCslcyQteCPJShD5zHF2HDhZxe6eqkk5I5OO6j8Rkb8N5+KhAqE5OCM8o5uGtwQQhKaZjXA4aj5q+ndDtDRu9FCATqmqpZt0Ur2sznglXKz+0i4xMjhfUvc1uAMlUp7XSMLg447AqKnxG7c4jOVGE6F0b7RHz18VPWTCRjzgEDotz0T2HBJyDyMLjuxXSOCphDCWvLxyD6rrLS0v0i1UzydxLQSUF6CXg7uDi1rXdkrumDQnCOuRIa0ZPCCrftaF3GMAIy8FiZ0ODEPgm0PutJx2SmhIEYCbxEOYQ3sFXEeQJI7Az5pTQvLquTPTKazyDwy09UtpBGJXnPOUZeEQ7phlpQVczNTHz3HzRlMfshjug7gMVUGCeSPmhH/IP00edc17XlrYYm8KSh1fcqipY14bg5VXa/MhBHVN7NAfpbD1GCsUXas7Mo0E1OsLiKmRkbms2uIyoZ9W3Z3Hj4SStDxcqgEcbzhYPySFVJu9GnHjTVjpt+ub8/wBaI/FYi617gSap/wCaWMDs8FemV2duQomx/nEe2yapqJZy6peQ2Jx6+iqc9TM6aQOmkIJPcqx6ebmecEk5id3VXrXBs0jR0DsLTiOZyY70CV1wFHDu3uJ/4iqpcrtJWkvLj7vHVNNSb3QNcwYAHKq7HYY9rupWuCMOR2qDLe2SeTzCZCjMhOQgbS8QHk9U2+lgZVt2VrSoTXCkMJyCopGxS04lyNzEbcXiYcclKAAMxnIz2Qboi2YR75muAPJPCwfF4Unv9U8slvAlG9vunhQXyi8CrLAOAk7D9HVi1jJC7I+6mNJGwkOcMqGlgLz6I6KLweSM+iehCSWOPb7oxlKKnbG8jumlSwPjDg4j4FJqmRpdtzkpZaCthFJMWVMDieA8Z/Ndj6ArI6mwUDonAjYMkFcWBjyRzjHK6B9g18lraaWiE7i6LkAu6BCO9glrRvG9z42BiEqpy6kLQOwQ94nlZsaCD05Uko2QMDsEnByEzQiYXS+6GppDIADg9lBRRMc3gA//AAptga92PJIkO3YNJh3JS2mYXVL9vmmLn8kY6IClJ+kvx5pZBQ7piWx4IQ1wGainJ494fNFU53wkDqgKsvE0IcP4x81F4R+nNQkAkz2806ss2+qY1hycY4Rv1npSmz9i520+vKyj1bpqA+JT0xa8ehWOMlR1cspPaENfDJDcJ/FaQ4uJAKFdvMg2tcfwVsdrezyuEpoA9/ckKM64oGuyy1sP4KvVl8JTUSunxAeI3E+gXzaGredwppD+Cfya/jx9nbYh+CjHtDqDw2hiH4BR0BZJUZadt9S2qd4sD42ujI3EJNcNHXU1Mr4qaSRjnEggJk7XdafuQsjK8/0g3UM2Db+SshNFM4SkU3U2mrrR257p6aVgaNxyOy16A2RuW9QtwV+o6q5hzZ/eY9u1wKomuNN0+nX01RA4kVQLiPJaseRMxZMLRXIpXs7I6GtAAD+6Dt8Lq6qZGCAD5oqWnfTzeD4Ze5p7DKt7lKhfgbJ4UcRkznIS2GgnrahnhMJyeMKz01puFXStMVsmeMdQwlMLG+ptlU1stmkbITgPc04CrlkRbjxHli0/UzVLKcxuL9udvdTXPSNQ18j5YnuaOpx91bn0bpCExtur5GvqXDoB0CG1v4VC7xBT7JHDacDIKrWRWani0aBrLJJRdseWECXOaMFpOOqtV/hutdL/AFalIAPklFy0/cqSMOmLd2AQGcn8lcsioyPC70V+qrA4FoKTuOHk9eUzqrTXb8ljgD3IwgZqZ8D9r+qP0TK3jcSN7y7huVvr9n3T76SGW6PcQZBsaPMea0pZbb9YXGGlbgukcAur9FWaOxWinpWAZY0A47oJ0xWtDi8yBr2jJJJCMLgaeMuPkk17eTKw5xyjwc0sTc89U7YiRZ6SURx5BBBUgk+0Jz1CV0R+xbk8BHw+87d5BKhmgUPcJH5BAQdJL/WXj1RcZ3ukz2KDpGf1p/xSSCix0g+y3dEBWuLqiIHj3x80fT8QBL6z+1Q/8Q+aZeEfpyrLyOAOuclfFjC0EAbu5WRBz0XxyB0XMR6FRVE8ThsA8vJZGQjOCVhDkjsFm5h9EHY6a8B8vDyS88rx73jlpd+amLCOchfAE+SF/wDYP5IfFkznK+JLh/EPXKmEYXzmjbhMqDaI2HcC0HDc91N7T6Lx7HRPBGY29VHEAXAevVWq8WtlZJboZmOfC5nPHGeytxmPKuzo0pp6gnuNyhpIXFj5HbQfJdC2z2fUtJb4RUwRvnY3LnEclU+s0FLpu70F7ibilfMGn/VK6Bt1FFWUcbsh25gOfPhWzbrRlhj6SNaG51dI19La6FznRg9BjOEqs01+1DXvNXRthYwZOW9VumLTsEWXtjaCfRZMscceXBjRnyCXrZeqK/o9stCXQyMG1wzwOiRa2ikuFwbTg7Gg5yVeaKkEdQ7A6Aqsaia03APLQOUqgP6Ui76Subbe6a2Tb6pp4jPQhII7ReqERy18EUj3ffaG8hbqo6SOaJjjyCOoUlVZ6aWMksBHwRdgSNMXHTzJqJ05iwAMkYWpNTUJFwxFE73jgBdPXOiijifGWDb5LUWp6GMamtgZEDG6QEjHqhiYmSCboi0XoT6DPSV1W33wA4Dyyt30bz4DC07cjGFXamKONjHNGAQA0AdE9of3DO56haISbZm5OJQrqC3eVzizJwQU4iyIIvgFXrs5z3NzxhysEcZdSxPJx7o4VtmQb0W8AMdhMIjs/JL6QAhp3dkew4ChGCxuw6THmoaL3p3npypIcmWT4qCgeTVSAeaWREiw07sQZKBquamIj/EPmjo/7O3KBqG5nj/4x80V4R+mi3ezmpEg3VsOzHPIXjPZ6C7D7jEAqsbxcOn0uQ58yvPrGsJy6oefxXPo7cYSLa72f08fP1pHgdQFK3Q1r3N3XNgz2z1VP+m1DhjxX8+q9gmfNVQ7pH5DhxlMokyQkkW2fRFqp3AzV+3PbK8bpjTzC3NcTk88rDVcY8WlGCMsHySQRjcWkZwU9RKYqRYhYtNRZLpnH4OWL7dpdp3B7z6ZKrkhEQ45UlERNKA4EBL/ACXKEh742l6Xnwnkj4psNV2ySFuyNri3AGW9AqdNE1ryMZXgjaBwnSKVGXY2tdLWL7pVsUXAkxI0dcFWHRsjjbYY5XZkYNpPTokXs6uUN2tf0IuPjwDGM/wp3b4zb62SIZw0osE07LfTtLx7y+nAETgOwQVPX5GFKJ9zHZOMp09ASFdHcqGOqfDLOGyc8FVDVt1t8leYYpgHjoPNWCp05TVFQ+o3Oa891Xq7R8Tg6aVpdIHcSJXIsinRY9LNFRbWbzzjBTCqpwyItB4+KU2Wb6vhFOT93jPmjqita9h5SOQSrX0bGv7nHRUBtHDVahglnYSIuQArxfJNzJDg8nsq1ZpqSnurn1EzGEDhrupSxJ/6xlO7eSMEN3e6PIJ5RRGKnaC7kBKo2/TawOY0CLPROnN2tIbytGIwZ8nZ0KLqwucw5/iyrAB/Uo+eQ0JFXu95gI7qwy4+r4wG87QrTMGUhBbG0HnCPDy14HbCCog0RR5b72EfgOAPkFCMEpn75pR6qO3M2zSPPXKzo3Bskp9VHTbnTODehKDDEfNeHU4A6oKo/fREdd4+aPji2QjPkgJTmoYPJ4+aK8A/TlYleg+qmFtr3Ox9GkP4KaO0V8h92kkP4LDdnf7JMEL/AFU9E7+txE+YRjdM3WQZbRPx8UbQaUuYqGOfTEYPmFKBkmmhtq2TMlITnOwdvRJGnnIKtOprNW1/0f6NGHbGgOGeiVRaUuWAXNa30JCbqZVOmKZW5C9pz4bhlPW6Rr39Xx4WTtG1JGTURgDqiolyyaET5AXZXgfuBGU6/oRUScitiCnbosQY8Wvjye2E9lCk+wpsF4rdPV/0qmd+Geq2JpTVUt+r3vq9rXnsFVm6Yt0cg8S5sxjnARVthoLTVslgrmuGewKDmh5WzbDNu7gIC73estjvs6J00fplQ0lw8djHsduGE7glbNHh2OexCC2LGVMqrtV3OYfY25wb5cpZc9T3x8Z20LmgeYVpr6avYS+jjbnskstHfa0Fk7GxN9E0jZGSordHqK819QIY6E7+7ldJDJDQMdMMSY94LC22x1CQX7d/mAh73Xl7/CBA+KqkVSYmvEwdA5w44Wt6gmpv1PtJw14yrjfa7w4XM3DgY4VOtDPEujXu6b0+Ix8iWjZFviLMOB4TcNa9ozkd0so5MYaBwU1Yx2349Fo/TAmKLtHtfub5hOo3uNHGT2ASi5NdyHDB3BO2AfQGEHPATEGFIwlzXdsJhwBhAUBJYPRHjBHPVQgHC1omkA6kqGgdtqJAfNTxnEkmRg54XlFG0PeT94lQg5bMDFgeSCeD4rCf8Y+aKBaYRgchCyPG9mePfb80fwDNDH2hTtALKOLPTOFA7XlxdnbHE3Poq03O34lZtA7rFo9B8lQ9OtLs5uDIGY6bVC7VV2e7iqePglWGrxuc57IWR4UvRidQXVxOayVeOvVyPJrJUEDjryV8XZRsnyiGC9XI9auRYuulc7IdVPcD5lQNwRzheODc8dVLCoIIiuFW2oiPjPxkZ5Vk1VOYnUxDnYcwH/sqrEftGnPQqz6wAcyix2jHyUkyn5rsIxVbyckle/SS3ADiMdENGCCsnAcnGSqG3Ztjii0bC0XdZzRe9l4a7n4LY1rr4Z2gh2D5LWHs0e2UVdO7qQMDyVsNJPQSkxuJC0x0jnZYdWXoVTCOgQ9RURvadoAIVVF5mYzDgRhDSXw4ONwTMilaGtbcWw7iHcgKnXC6B8j3k5OeFnW1slTnaCoaSzS1rsuBAVMieiGeCe4SueQfD6pbbINlwA5GHrYs1nbSUjm9w3PTqlVx0vJQ0tHd2jETjmQY+7yrsEXLwo5LVDO3nL2gp4/LdmwJDbJ6eqka+CoikHkxwJT2SXZtI4V8lTowRSoVV53lwcCDlNYm7KBo55ASu6y7XgHjcQMgJsWltDG1x6gcohGlI3GMd0eYztJ9EDb8ucM8YwmbnDaceSlgFMbHOneSeFjT5E7gD3U0H72TlR0wDqhze+VLIO442imJzkoJ4BfGD/jHzR1OD4RBHHZBytzNGcYw8fNH8IcrB+AAs9/xVybBpJvLmbvxU7KjSMY4ps/isOjtrK16UjdxyD+S95xw135K8vvOloW5jo8/gvhqTTu4NbRDn0U0CWZlHDXO52u/JZ+FMekbz+Cv9wutptrYn/Q2YkGQMIX+mtEwHbb4vREn2nWkU5lLUHpA8/gpBba6ThlM4u+CtUmuPeBjpIQPgvn6+dj3KSIH0URO+R/hXafT91c8F1I8DqrRfLVVVNLSllM55YzBx2QLvaFWA48GPCxOv693RjGjyRdMqcZ2Dx2Gvf1oZApG6auBJcKR4B6L468uX8O3Cwfrq48HftAPOAlWO3osbml6W72e6euFtrJKqoi2xP4yR1WxZoGvaDtyhNGCa7aKgrX+8/xHbj5hNgwGL3Vdkg0jK5u9gDbRBVj7oygqvTkceSGhN4Huhk4GApK2oDyA0cKqTZZFlUNojY7lgyfRM6KgDWjDcfgi2weI/JCbUNtdVkNjbgdz5KtJyY7kkhW2yPujmxBpxnDj6J5dLJT1dtfbpIwYXx7HNb34T2mt8VFEGx/eAwXeaWaiq2WmzVtbK4NEUTngn0C7HEgorZys+S2cbXS61Ps313Ux0Ujn0jJCCwnPGei3bpbVdv1TRMnp5WiRwy6MnkLmzVFe663usqyc+LK535lQWa83Gw1AqaCofC8cccqyeJPZRGZ1Fcnna9oaDtcOSnDtrrdG4H+ELTunPaxTVtO2nvD3CY4G8Dr8Vta33ahuNBCKWpjly0cNKzSxtFikPqQuY0H0TCM+6c9wl9LKPBGSMqcTHGCUiiFuzCMgPlIQ9vG+qcScKaD94/soqZoFa/4hRoKLDTjgAnIQUxP0hnkHj5omnzscSeR0QrjmVuTn3x81F4R+nKzIyD3UrGZHKya056BZHjuFzdno1C34Y+EPzXzBsI45ystwI814HgyNHfKmwZMdLws2ptkjaTI5Ebfkq+S0nGBj4KwakjcIKRxOR4Y6/BV9zejgjbFj2MXjr5KEu5RDm8cEIeRh65A9U0U2O+yI9+4/BZ78DCHMmHFuOVhPVsp25kcAT0CeMJN0iqWSMVbCWPDSS52Pil1wrJJy2mpTmV5wAOeUFU15lJA6FbM9hGh2akvv06pbup6UZzjjd2XT4/Er+mzk8nmOX8xOhPZfanW3RNDRTgFzow5/HchS3G2vt05c1pMBP5Kw0sYp42MDeBwEZLFHNE9jwHNPZLmin4ZMeR3bKM6EPw4Dgr36I08kJnXWZ9K8uiIMfZqIt1ofUtElRloHZZ3js3/ZVYBb7K6rkzgtjHUq0U1JHSwhjGgY7gKWGFsMYY0YAXrjhWY8aRlzZmyFzAecrT37RmpjadKm3QOAkqT58lvdbiecAnOMBce/tDaibe9ayUcUxfHQ+6MHjla8Mexmk9GpXx5K9ZHjspi0u5C98ItALnYC0xhQqAqgYlb2R9BeblbHtdS1k0e05Aa4gIGsexzwGDJUjW+6M+SWUUxkzZWmvbjeLcGQ3JjKqFp/hAa781tnTvtT09qMNaypbDKR9x/GD8Vy9gBeMc5j8sJz5hVPCN2OzKORs5c6ORsjT0LTlZMjLasn1C5e0t7Tr9piRognMkI6xuPBW0tPe3O3V8rWXNopnkgFx4aqJYmhlI3NE8tb8Soncys/4x80Lar7b7vTiSjqopWkZy05RErsSxD/AFh81W4tIN7NB/0EuBHvSQt9d44Xw0BV/wAVbFj4hVyS93CTANVJ+aifcq53H0yU/wDUVz9HdrI/C2f0AeBl1yhH/UF8zQsQfl1yiyD/AIgqiautcMGokI+Ki8WpJOaiT81NAccr/TaddQ26ppIqSasiDowBu3BLG6XtDCd10Y5vYZCobTM4cyud8SstzwM5PHqjSYnyyR22XtumrERk3BpzxjKwqNP6agjL568bB1BOFrurvUdM3LZCXj1SGruVVXO997ti1YuI5GfLnlHTZZtSXyzQyGmtMZld08Q8KskueN8riT1x5IMQlrtwPKm3uIwV1cPHjH05WbNKT0Sx5nmYwHDScLsf2K6cZZNHwMaB4swD3nHVcpaDsjr/AKmo6NoyHvC7k05bo7Xa4aZoxsYBhNnaS0VRb/Q7wiWY8lV/aBrIaH01Pc3MMj28NHr6q3MwQVVfaPYItRaXq7eYw90rDtz2KxLbLOr/AA5hrPatqy8XJ1ybcnxh3MbR0aPh3W0PY17ba3UF2FgvbnS1DuGSBnB+OOi0FJTS2uSpo5Wlj6d5bgra37NmmxVVFZfpIzneY2HyI7q6UERNnTo3YHcLINJ5UNJJ7oa48okuGcZWeSYyE+qbo2x2Gtr3cCKMk/kuDb1Wy3O8VdZKcukkcc/iuwvbxcnUOhaxjHYdM3YOeq43LMc9+628WGrEmyLw/wAFBUU7pGgbiOUZgLwgEFX0ImBQwsj93GT5lSuiAX1QNkYI65WTXEtGfJDqSyEsAKw8M54ROzPZeiLhMok7AhYeoGF45ufvBGmHhRuh6pXjTGUguyarvOnqls1vrJIsYy0nII+C3Jo/26NrqulpLzTlkj5GMEzedxJHbstHsgyfgirY4C80Df8AeYv8wVM8Ohk9lpZTb2kjg45CHkgcw5CZNpKph2fRpdw6naV5JQ1bx/Z5P/5K87Ts9M5xr0Wh56ErIj1U4tFc53FNKf8ApKl+prj4TnfRXgNGckIqLbpAWSCVtgbpmQx7nnASW4Xh0hMcXDfNDXColkqHRudwOMKARDGV1+PxF60cnk8p+JkZZvducSfis+g4HRSbMBYkYC6kYKGkcxycnbPQ3jKwcMArMdFg/qAgwWX72IyeBreg4BJf3+C7LtzXPaHuPXsuL/ZHM2DW9rzj3pf/AIXbFJtELNvksvIeho+kxHPkoqiJsgO8ZaBypidyxlGY3A9CFiTdl/4cW+15lNHr+7ii+44tyPI4W6f2b6MHRu8cDx3ZwtMe1WhbT+0O6iN25riPktgfs06rbTVVTYZ3YD3bogT1d3Wpt0V/p0bFCGkkrNzWu5XjTnIXzyIwXOOGjlZG25FjNA/tPXwx01LamuAcTvIB5wucugDStie2+/fX2uqsiTcylJhA+C15wRk9V1sS6xM0nsx2cdVjzn0CkPksXuDI3HHUYVtICBHZmmx/CEUyMYUdPHiMk9UR2CUY8DQFkAF4sh0RAeFowo5RtPHKmPQqBxxlxSNkRg5wZ8Ss7U0G80B/3mP/ADBCnMhyDwi7R/e9AP8AeYv8wSSbHRtk+0CDORSDn0Wf+kGDb/ZOfgFRQB3Kza5vTleabPT/AAgXd3tCjDQWUuCPQJdd/aA+ejmibBsLm4BAVZ3NQNxfth+Kt4j7TozcrFCMLEdR787pHDlxyVngHC9nbmMHC9ZgtC9PCkjzz2fYHksHNGFKceawIRasnhE3oVi4chSM75WLgEjIyw6EqPo2rLZJnG2UFdy2+UOpocdSwH/suCrJN9GuVJMOrZG8/iu5tLSmqtlLKejo2/JZc61Y0R8wDGccoC+3BtrtVVVvGWxMLimAGDha69ud6dZtGTAP2/SvsljirZd+HLF+u0l51LWVchJL5DyT2zwj9A1T7Rragqo37MSDJHdVyB26dzj58lN7M7ZeaR3fxG/Na60Vfp3DQyeLSxyce80HKWauurLRp+tqpXABkTsH1wjbYQLbTEf4G/Jaz/aI1B9WaQdRRva2WrI2884HVZoRuY7ejli5Vr7lcKiseSXTPLiT3QYaQeVk44KxccLrJUjO/T7G5yHmd4jxGOyIz4bHOKhpWbiZD3ShSJi3a0Dovh0Xuc9V90RCfYXoXi+JUIYyOw0rBzC9gXjjk4Wcp2tACRkIywRjgBe2l2L1QD/eYv8AMFGSe6+tz8X23/8AMxf5wq5Dos48l9jHPZXMaXsLRn60H5hZM0taKvIhuAOOTghebUdnpXyNaKZgHugLqRhoBWxI7Dptg2TV0m70wqtrehtVGyN1FNv57rRw4/8AKZ+Vk7YipOBLCO6jjOAQpmYPAPUKHaWv2r0iVHnUZBe4wvgsiOEyIQOG14KxkGeVLOOhUZOeUrIEUfEseOocD/3Xb/s1rRW6Ut8gI/dgLh2A+7uHZdh+wasFToSgOSS1pBz8VRyV/A8DZo65XPX7UN5extFbBIMZ8XC6EH3c5XIXt/uz7lrqWIvyynb4WPXKw4V/Rc/DXlMBt3dymloG660g/wBq35pVDwAE20/h18ox/tG/Na5f5Kk9nbVsG220zT08NvyXNH7SF/FdqeO2xuyylaCOe5XSElZHQWRtTJwyKAF35LinWd4ffNSV1W7PMrg0nyB4SceP9WNJ6EbuSVjtyVkPVe5DfePQLa2VfoPWO+60d1K1uxob6KBhEk5e77vZEZBdlLY58vl6OV47hSxTxeOOFlx5rCXjn0QshGz35h6KaRoUFIMyOKJeC7hABA9uAo7Xxe6D/mYv84UrwQMFY2wYvdB/zMX+YKuRZEtnVvJOPinmjYibpK37zPDPGfRLWWi4/wD4FX/Jd+icaVo66nuEgdQ1Td0busTv0XnE7Z6XIo9bBKhjXTyu25O8jqkmoYd1NG4tHXurFUW2vEjy2iquXEn7J36JNfbZcXwMa2grHfCF36LRxL+pjzpfMq7Sd3IAUM/uy5TIWa5Z/u6sH/su/RQ1dlufUW6tP/sO/Rejs4T9BG84WaJistzwM26t/kO/RSGy3PPFurP5Lv0TJ2AXvG4KEY5CbGy3L/8AXVn8h36IZ1kuYef/AA6t/kO/RKyUDw8AtXTf7Ml4ZUWCroHP+0geA0Z7YXOMNmugd/dtZz/sHfots/s81NZZtXS0tRR1EUNRGTl8TgN3xwqs6uI8DqOol8CjkkPRrC78guG9eVr7nrK6VLnbmvmJac9l2pqSodT6frHNa5zvBcAAMnouIau13OetllNvrDueT+5d5/BYsOmXPwCZwm+mGh+oKIcfvG/NBus9xAJFvrf5Lv0TjRtluL9SUQdQ1TBvBy6JwHyV7d6Ka2dH+2LUAsOgXMbIGSVEQiHnyFyRknLpDl3n5rfX7RUtZXRWqhgp6mRoiD3eHG48j4LSJs1yI/u+t/ku/RW8eNLZJMAPvHAUNXJsbsb34TN1nubQT9XVmP8A0XfohGWe5yzZNtrcD/YO/RWNipMDiYWx8jlZseQMkJg+z3Pr9XVn8l36KF9oueP7urP5Dv0SNjIFMp8l5vccIoWm5D/7bW/yHfosm2y4cD6rrv5Dv0S2SgN+cjK8mdhqMdaLm94H1ZWgf+g79FjU2a6AYFtrf5Dv0TXRKBKHkuKK7ry22e6FribbWA5x+4d+iN+pbl1+rqz+S79EVsDQtk6r62D/AMZoP+Zi/wAwRr7Lcyf7urf5Dv0XttstybeKE/V1YAKmMn7F3HvD0Vcx4n//2Q==" alt="Erion Ahmetaj" width="88" height="88">
+        <p class="eyebrow">CS @ Stevens Institute of Technology<br>Class of 2029</p>
+      </div>
+      <h1>Erion<br><span class="last">Ahmetaj</span></h1>
+      <p class="lede">Computer Science sophomore minoring in <strong>Machine Learning</strong>. Last summer I built and shipped AI agents at <strong>Pfizer</strong> that took manual data work off analysts' plates. I'm looking for internships and co-ops in AI, data and software.</p>
+      <div class="actions">
+        <a class="btn primary" href="#contact">Get in touch</a>
+        <a class="btn" href="https://github.com/eahmetaj-ops" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+          GitHub
+        </a>
+        <a class="btn" href="https://www.linkedin.com/in/erionahmetaj" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+
+    <div class="term" aria-label="Terminal-style summary">
+      <div class="term-bar"><i></i><i></i><i></i><span>erion@stevens: ~</span></div>
+<pre><span class="p">erion@stevens</span>:<span class="c">~</span>$ whoami
+Erion Ahmetaj · CS '29 · minor in Machine Learning
+
+<span class="p">erion@stevens</span>:<span class="c">~</span>$ cat experience.log
+<span class="dim">2026</span>  Data Science Intern, Pfizer
+<span class="dim">2024–</span> Tech Associate, Pawsome Vita
+<span class="dim">2024</span>  Research Delegate, YLC Chengdu
+
+<span class="p">erion@stevens</span>:<span class="c">~</span>$ ls ./stack
+python  java  c  c++  sql  arm64
+databricks-genie  copilot  git  linux
+
+<span class="p">erion@stevens</span>:<span class="c">~</span>$ <span class="cursor" aria-hidden="true"></span></pre>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="label">01 <b>/</b> about</div>
+    <div class="about">
+      <h2>I like building tools that save people real time.</h2>
+      <p>I'm a sophomore at Stevens studying Computer Science with a minor in Machine Learning, and I hold a 3.8 GPA. My coursework covers both sides of the field: the math behind machine learning (linear algebra, probability, multivariable calculus) and the systems underneath it (data structures, algorithms, computer architecture, ARM64 assembly).</p>
+      <p>At Pfizer I learned that a useful AI agent starts with listening. I met one-on-one with data scientists and business stakeholders, scoped where automation would help most, then built and tested agents in Databricks and Microsoft Copilot until they were accurate enough to rely on.</p>
+      <p>Outside of school I'm the technology associate at Pawsome Vita, a pet-care business in Jersey City, where I set up and support the systems the team uses every day. I've also spent years fundraising for maternal and child healthcare in Kosovo. I speak English and Albanian, plus some Spanish.</p>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="label">02 <b>/</b> experience</div>
+    <div>
+      <h2>Experience</h2>
+      <div class="jobs">
+        <article>
+          <div class="job-head"><h3>Pfizer · New York, NY</h3><span class="when">May – Aug 2026</span></div>
+          <div class="job-role">Data Science Intern</div>
+          <ul class="pts">
+            <li>Gathered requirements in 1:1s with data scientists and business stakeholders, then built and deployed AI agents in Databricks and Microsoft Copilot that automated large-scale data categorization analysts had been doing by hand.</li>
+            <li>Developed the DQS AI agent as a Databricks Genie space on IQVIA's Data Query System, a global platform for selecting clinical trial sites and investigators. Stakeholders can now ask plain-English questions and get self-service access to quality data.</li>
+            <li>Raised agent accuracy and efficiency by writing and running manual test cases, then refining prompts, instructions and agent logic based on the results.</li>
+            <li>Delivered a portfolio categorization project using AI-assisted classification to organize portfolio data for downstream analysis.</li>
+          </ul>
+        </article>
+        <article>
+          <div class="job-head"><h3>Pawsome Vita · Jersey City, NJ</h3><span class="when">Sep 2024 – Present</span></div>
+          <div class="job-role">Technology Associate &amp; Daycare Attendant (part-time)</div>
+          <ul class="pts">
+            <li>Implemented and support the daily-use systems for scheduling, customer management and internal workflows.</li>
+            <li>Set up and maintain core infrastructure, including security cameras, phones and on-site systems.</li>
+            <li>Research regional competitors to refine pricing and identify customer-driven service improvements.</li>
+            <li>Standardized care routines and keep operations compliant with safety and hygiene protocols.</li>
+          </ul>
+        </article>
+        <article>
+          <div class="job-head"><h3>Youth Leadership in China · Chengdu</h3><span class="when">Summer 2024</span></div>
+          <div class="job-role">Research &amp; Leadership Delegate</div>
+          <ul class="pts">
+            <li>Selected for a competitive three-week international program on sustainable innovation and global leadership.</li>
+            <li>Researched sustainable energy adoption in urban environments and presented a thesis to an expert panel, earning commendation for analytical rigor.</li>
+            <li>Worked with international peers on solutions for renewable energy access in developing cities.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="label">03 <b>/</b> projects</div>
+    <div>
+      <h2>Projects &amp; research</h2>
+      <div class="projects">
+        <article class="proj feature">
+          <div class="proj-kind">AI agent · Pfizer internship</div>
+          <h3>DQS AI Agent</h3>
+          <p>A Databricks Genie space built on IQVIA's Data Query System, the database Pfizer uses to identify, evaluate and select clinical trial sites and investigators. Instead of writing queries, stakeholders ask questions in plain English and get answers from quality data. I tuned it through rounds of manual test cases, adjusting prompts, instructions and logic after each pass.</p>
+          <div class="tags"><span class="tag">Databricks Genie</span><span class="tag">Prompt engineering</span><span class="tag">SQL</span><span class="tag">Agent testing</span></div>
+        </article>
+        <article class="proj">
+          <div class="proj-kind">AI classification · Pfizer internship</div>
+          <h3>Portfolio Categorization</h3>
+          <p>Applied AI-assisted classification to organize portfolio data for downstream analysis, replacing categorization that had been done manually.</p>
+          <div class="tags"><span class="tag">Microsoft Copilot</span><span class="tag">Databricks</span><span class="tag">Data analysis</span></div>
+        </article>
+        <article class="proj">
+          <div class="proj-kind">Game development</div>
+          <h3>2-D Java Arcade Game</h3>
+          <p>An interactive arcade game, more than 1,000 lines of Java Swing, built on an object-oriented architecture with collision detection. I debugged and optimized it for stable frame rates and responsive controls.</p>
+          <div class="tags"><span class="tag">Java</span><span class="tag">Swing</span><span class="tag">OOP</span></div>
+          <a class="proj-link" href="https://github.com/eahmetaj-ops" target="_blank" rel="noopener">View code on GitHub ↗</a>
+        </article>
+        <article class="proj">
+          <div class="proj-kind">Research · Chengdu, 2024</div>
+          <h3>Sustainable Energy Thesis</h3>
+          <p>Modeled the efficiency, feasibility and policy impact of integrating renewable energy in urban China, then presented the findings to an expert panel.</p>
+          <div class="tags"><span class="tag">Research</span><span class="tag">Data-driven analysis</span><span class="tag">Presentation</span></div>
+        </article>
+        <article class="proj">
+          <div class="proj-kind">Leadership · 2021 – Present</div>
+          <h3>Action for Mothers and Children</h3>
+          <div class="impact">
+            <span class="num">$68K+</span>
+            <span class="num-label">raised for women's and children's healthcare in Kosovo</span>
+          </div>
+          <p>I coordinate fundraising events with nonprofit organizers and lead donor outreach across the tri-state area. The work has helped establish multiple Women's Health Resource Centers.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="label">04 <b>/</b> skills</div>
+    <div>
+      <h2>Skills</h2>
+      <dl class="skills">
+        <div class="skill-row"><dt>languages</dt><dd><span class="chip">Python</span><span class="chip">Java</span><span class="chip">C</span><span class="chip">C++</span><span class="chip">SQL</span><span class="chip">ARM64 Assembly</span></dd></div>
+        <div class="skill-row"><dt>ai &amp; data</dt><dd><span class="chip">Databricks (Genie)</span><span class="chip">Microsoft Copilot</span><span class="chip">Claude Code</span><span class="chip">AI agent development</span><span class="chip">Prompt engineering</span><span class="chip">Data analysis &amp; visualization</span></dd></div>
+        <div class="skill-row"><dt>tools</dt><dd><span class="chip">Git &amp; GitHub</span><span class="chip">Linux / Bash</span><span class="chip">Digital logic &amp; circuits</span><span class="chip">Salesforce</span><span class="chip">Microsoft Office &amp; SharePoint</span></dd></div>
+        <div class="skill-row"><dt>spoken</dt><dd><span class="chip">English</span><span class="chip">Albanian</span><span class="chip">Spanish (basic)</span></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="label">05 <b>/</b> education</div>
+    <div>
+      <h2>Stevens Institute of Technology</h2>
+      <div class="edu-grid">
+        <div class="edu-cell"><div class="k">Degree</div><div class="v">B.S. Computer Science</div></div>
+        <div class="edu-cell"><div class="k">Minor</div><div class="v">Machine Learning</div></div>
+        <div class="edu-cell"><div class="k">GPA · Graduating</div><div class="v gpa">3.8 · May 2029</div></div>
+      </div>
+      <div class="course-head">relevant coursework</div>
+      <div class="tags">
+        <span class="tag">CS 385 Algorithms</span><span class="tag">CS 284 Data Structures</span><span class="tag">CS 382 Computer Architecture</span><span class="tag">CS 135 Discrete Structures</span><span class="tag">Linear Algebra</span><span class="tag">Probability &amp; Statistics</span><span class="tag">Multivariable Calculus</span><span class="tag">Frontiers of Technology: AI &amp; ML</span><span class="tag">CS 101 Research &amp; Entrepreneurship</span>
+      </div>
+      <p style="margin-top:20px;color:var(--muted);font-size:0.9375rem">Member of the Stevens Artificial Intelligence Club since Sep 2025.</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="label">06 <b>/</b> contact</div>
+    <div>
+      <h2>Let's talk.</h2>
+      <div class="contact-card">
+        <p style="margin:0;color:#c8c4c4">I'm open to internships and co-ops in AI, data science and software engineering. Email is the best way to reach me.</p>
+        <div class="email-line">
+          <code id="email">eahmetaj@stevens.edu</code>
+          <button class="btn" id="copyBtn" type="button">Copy email</button>
+          <span class="copied" id="copied" hidden>Copied</span>
+        </div>
+        <div class="actions">
+          <a class="btn" href="https://github.com/eahmetaj-ops" target="_blank" rel="noopener">github.com/eahmetaj-ops</a>
+          <a class="btn" href="https://www.linkedin.com/in/erionahmetaj" target="_blank" rel="noopener">linkedin.com/in/erionahmetaj</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Erion Ahmetaj</span>
+    <span>Hoboken, NJ · Eastchester, NY</span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var btn = document.getElementById('copyBtn');
+  var note = document.getElementById('copied');
+  var email = document.getElementById('email');
+  function selectEmail() {
+    var r = document.createRange(); r.selectNodeContents(email);
+    var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+  }
+  btn.addEventListener('click', function () {
+    var done = function (msg) { note.textContent = msg; note.hidden = false; setTimeout(function () { note.hidden = true; }, 2000); };
+    try {
+      navigator.clipboard.writeText(email.textContent).then(function () { done('Copied'); }, function () { selectEmail(); done('Selected — press Ctrl+C'); });
+    } catch (e) { selectEmail(); done('Selected — press Ctrl+C'); }
+  });
+})();
+</script>
+
+</body>
+</html>
